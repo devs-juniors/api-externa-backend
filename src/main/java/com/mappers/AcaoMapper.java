@@ -1,5 +1,7 @@
 package com.mappers;
 
+import com.domains.Acao;
+import com.domains.dtos.AcaoResponseDTO;
 import org.springframework.stereotype.Component;
 
 @Component
