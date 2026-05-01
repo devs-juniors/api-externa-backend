@@ -19,6 +19,12 @@ public class CepFacade {
             throw new RuntimeException("CEP inválido: deve conter 8 números");
         }
 
-        return cepClient.buscarCep(cepLimpo);
+        CepResponseDTO resposta = cepClient.buscarCep(cepLimpo);
+
+        if (resposta.getCep() != null) {
+            resposta.setCep(resposta.getCep().replaceAll("-", ""));
+        }
+
+        return resposta;
     }
 }
