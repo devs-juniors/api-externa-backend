@@ -1,5 +1,7 @@
 package com.mappers;
 
+import com.domains.Corretora;
+import com.domains.dtos.CorretoraResponseDTO;
 import org.springframework.stereotype.Component;
 
 @Component
