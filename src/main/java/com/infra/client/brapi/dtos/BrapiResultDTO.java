@@ -25,5 +25,5 @@ public class BrapiResultDTO {
     private String moeda;
 
     @JsonProperty("regularMarketTime")
-    private Long dataHoraCotacao;
+    private String dataHoraCotacao;
 }
