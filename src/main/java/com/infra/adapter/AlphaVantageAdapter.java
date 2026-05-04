@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 
 @Component
@@ -14,7 +16,6 @@ public class AlphaVantageAdapter implements CotacaoAdapter {
 
     @Autowired
     private AlphaVantageClient alphaVantageClient;
-
 
     @Value("${api.alphavantage.key}")
     private String apiKey;
@@ -36,7 +37,9 @@ public class AlphaVantageAdapter implements CotacaoAdapter {
         dto.setNomeEmpresa(null);
         dto.setMercado("EUA");
         dto.setMoeda("USD");
-        dto.setCotacaoAtual(quote.getCotacaoAtual());
+        dto.setCotacaoAtual(
+                quote.getCotacaoAtual().setScale(2, RoundingMode.HALF_UP)
+        );
         dto.setDataHoraCotacao(LocalDateTime.now());
         return dto;
     }
