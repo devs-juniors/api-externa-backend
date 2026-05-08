@@ -1,6 +1,6 @@
 # API Externa Backend — Gestão de Ações
 
-Sistema de gestão de corretoras e ações financeiras desenvolvido em Java com Spring Boot, com integração a APIs públicas externas para validação e enriquecimento de dados.
+Sistema de gestão de corretoras, ações financeiras e carteiras de investimento desenvolvido em Java com Spring Boot, com integração a APIs públicas externas para validação e enriquecimento de dados.
 
 ## 👥 Integrantes
 
@@ -31,10 +31,11 @@ O projeto segue arquitetura em camadas com os seguintes pacotes:
 ```
 com/
   ├── config/           → configurações globais (FeignConfig)
-  ├── domains/          → entidades e DTOs
+  ├── domains/          → entidades, DTOs e enums
   ├── infra/
   │   ├── adapter/      → Adapters de cotação (Strategy + Adapter)
   │   ├── client/       → interfaces OpenFeign das APIs externas
+  │   ├── converters/   → conversores JPA de enum para banco
   │   └── facade/       → Facades de isolamento das APIs
   ├── mappers/          → conversão Entity ↔ DTO
   ├── repositories/     → interfaces JPA
@@ -156,20 +157,39 @@ O projeto sobe em `http://localhost:8080`
 | GET | `/acoes/ticker/{ticker}` | Busca ação por ticker |
 | PUT | `/acoes/{id}/atualizar-cotacao` | Atualiza cotação da ação |
 
+### Carteiras
+
+| Método | Endpoint | Descrição |
+|---|---|---|
+| POST | `/carteiras` | Cria uma nova carteira |
+| GET | `/carteiras` | Lista todas as carteiras |
+| GET | `/carteiras/{id}` | Busca carteira com posições e lucro/prejuízo |
+| POST | `/carteiras/{id}/comprar` | Registra compra de ação |
+| POST | `/carteiras/{id}/vender` | Registra venda de ação |
+| GET | `/carteiras/{id}/operacoes` | Lista histórico completo da carteira |
+
+### Operações
+
+| Método | Endpoint | Descrição |
+|---|---|---|
+| GET | `/operacoes/carteira-acao/{id}` | Histórico de uma posição específica |
+| GET | `/operacoes/carteira-acao/{id}/compras` | Filtra só as compras |
+| GET | `/operacoes/carteira-acao/{id}/vendas` | Filtra só as vendas |
+
 ---
 
 ## 🧪 Exemplos de uso
 
-### Cadastrar corretora
+### 1. Cadastrar corretora
 
 ```json
 POST /corretoras
 {
-    "cnpj": "11.222.333/0001-81"
+    "cnpj": "02332886000104"
 }
 ```
 
-### Cadastrar ação brasileira
+### 2. Cadastrar ações
 
 ```json
 POST /acoes
@@ -179,7 +199,13 @@ POST /acoes
 }
 ```
 
-### Cadastrar ação americana
+```json
+POST /acoes
+{
+    "ticker": "VALE3",
+    "mercado": "BR"
+}
+```
 
 ```json
 POST /acoes
@@ -189,10 +215,83 @@ POST /acoes
 }
 ```
 
-### Atualizar cotação
+### 3. Criar carteira
+
+```json
+POST /carteiras
+{
+    "nome": "Carteira Principal",
+    "corretoraId": 1
+}
+```
+
+### 4. Registrar compras
+
+```json
+POST /carteiras/1/comprar
+{
+    "ticker": "PETR4",
+    "quantidade": 10,
+    "precoUnitario": 49.08
+}
+```
+
+```json
+POST /carteiras/1/comprar
+{
+    "ticker": "PETR4",
+    "quantidade": 5,
+    "precoUnitario": 52.00
+}
+```
+
+```json
+POST /carteiras/1/comprar
+{
+    "ticker": "VALE3",
+    "quantidade": 8,
+    "precoUnitario": 68.50
+}
+```
+
+```json
+POST /carteiras/1/comprar
+{
+    "ticker": "AAPL",
+    "quantidade": 3,
+    "precoUnitario": 276.83
+}
+```
+
+### 5. Registrar venda
+
+```json
+POST /carteiras/1/vender
+{
+    "ticker": "PETR4",
+    "quantidade": 5,
+    "precoUnitario": 55.00
+}
+```
+
+### 6. Atualizar cotação
 
 ```
 PUT /acoes/1/atualizar-cotacao
+```
+
+### 7. Ver carteira com lucro/prejuízo
+
+```
+GET /carteiras/1
+```
+
+### 8. Ver histórico de operações
+
+```
+GET /carteiras/1/operacoes
+GET /operacoes/carteira-acao/1/compras
+GET /operacoes/carteira-acao/1/vendas
 ```
 
 ---
@@ -226,7 +325,49 @@ Acao
 ├── moeda (String)
 ├── cotacaoAtual (BigDecimal)
 └── dataHoraCotacao (LocalDateTime)
+
+Carteira
+├── id (Long)
+├── nome (String)
+├── corretora (Corretora)
+├── posicoes (List<CarteiraAcao>)
+└── dataCriacao (LocalDateTime)
+
+CarteiraAcao
+├── id (Long)
+├── carteira (Carteira)
+├── acao (Acao)
+├── quantidadeAtual (Integer)
+├── precoMedioCompra (BigDecimal)
+└── valorTotalInvestido (BigDecimal)
+
+Operacao
+├── id (Long)
+├── carteiraAcao (CarteiraAcao)
+├── tipo (TipoOperacao: COMPRA | VENDA)
+├── quantidade (Integer)
+├── precoUnitario (BigDecimal)
+├── valorTotal (BigDecimal)
+└── dataOperacao (LocalDateTime)
 ```
+
+---
+
+## 💰 Cálculo de Preço Médio
+
+O sistema calcula automaticamente o preço médio de compra a cada nova compra:
+
+```
+Exemplo:
+  Compra 10 ações a R$ 49,08 → total investido: R$ 490,80
+  Compra 5 ações a R$ 52,00  → total investido: R$ 260,00
+
+  Total de ações: 15
+  Total investido: R$ 750,80
+  Preço médio: 750,80 ÷ 15 = R$ 50,05
+```
+
+Na venda o preço médio **não se altera** — apenas a quantidade e o valor total investido são recalculados.
 
 ---
 
@@ -253,5 +394,8 @@ O sistema trata os seguintes cenários de falha:
 - Cadastro duplicado de corretora por CNPJ
 - Cadastro duplicado de ação por ticker
 - Mercado não suportado
+- Carteira duplicada com mesmo nome na mesma corretora
+- Venda com quantidade maior do que a disponível na carteira
+- Ação não cadastrada no sistema antes de comprar
 - API externa fora do ar
 - Limite de requisições excedido
