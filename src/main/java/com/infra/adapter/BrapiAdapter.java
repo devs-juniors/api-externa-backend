@@ -32,6 +32,19 @@ public class BrapiAdapter implements CotacaoAdapter{
                 .getResults()
                 .get(0);
 
+        if (resultado.getCotacaoAtual() == null) {
+            throw new RuntimeException(
+                    "Ticker '" + ticker + "' não encontrado no mercado brasileiro. " +
+                    "Verifique o ticker informado.");
+        }
+
+        if (resultado.getMoeda() != null && !"BRL".equalsIgnoreCase(resultado.getMoeda())) {
+            throw new RuntimeException(
+                    "Ticker '" + ticker + "' não pertence ao mercado brasileiro " +
+                    "(moeda retornada: " + resultado.getMoeda() + "). " +
+                    "Para ações americanas, selecione o mercado EUA.");
+        }
+
         AcaoResponseDTO dto = new AcaoResponseDTO();
         dto.setTicker(resultado.getTicker());
         dto.setNomeEmpresa(resultado.getNomeEmpresa());

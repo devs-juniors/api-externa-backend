@@ -8,9 +8,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @EnableFeignClients(basePackages = "com.infra.client")
 @SpringBootApplication(scanBasePackages = "com")
-@EnableJpaRepositories(basePackages = "com.repositories")
-@EntityScan(basePackages = "com.domains")
-
 public class ApiExternaBackendApplication {
 
     public static void main(String[] args) {

@@ -6,6 +6,7 @@ import com.domains.dtos.AcaoResponseDTO;
 import com.infra.adapter.CotacaoAdapter;
 import com.mappers.AcaoMapper;
 import com.repositories.AcaoRepository;
+import com.repositories.CarteiraAcaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,9 @@ public class AcaoService {
 
     @Autowired
     private AcaoRepository acaoRepository;
+
+    @Autowired
+    private CarteiraAcaoRepository carteiraAcaoRepository;
 
     @Autowired
     private AcaoMapper acaoMapper;
@@ -73,6 +77,17 @@ public class AcaoService {
         Acao acao = acaoRepository.findByTicker(ticker.toUpperCase())
                 .orElseThrow(() -> new RuntimeException("Ação não encontrada"));
         return acaoMapper.toResponseDTO(acao);
+    }
+
+    public void excluir(Long id) {
+        Acao acao = acaoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Ação não encontrada"));
+
+        if (carteiraAcaoRepository.existsByAcaoId(id)) {
+            throw new RuntimeException("Não é possível excluir uma ação que está em uso em carteiras");
+        }
+
+        acaoRepository.delete(acao);
     }
 
     public AcaoResponseDTO atualizarCotacao(Long id) {

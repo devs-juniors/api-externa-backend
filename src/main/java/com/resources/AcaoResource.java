@@ -60,4 +60,11 @@ public class AcaoResource {
         AcaoResponseDTO acao = acaoService.atualizarCotacao(id);
         return ResponseEntity.ok(acao);
     }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> excluir(@PathVariable Long id) {
+        acaoService.excluir(id);
+        return ResponseEntity.noContent().build();
+    }
 }

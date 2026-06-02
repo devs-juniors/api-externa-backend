@@ -1,6 +1,6 @@
-# API Externa Backend — Gestão de Ações
+# FEF Invest
 
-Sistema de gestão de corretoras e ações financeiras desenvolvido em Java com Spring Boot, com integração a APIs públicas externas para validação e enriquecimento de dados.
+Sistema de gestão de corretoras, ações financeiras e carteiras de investimento desenvolvido em Java com Spring Boot, com integração a APIs públicas externas para validação e enriquecimento de dados.
 
 ## 👥 Integrantes
 
@@ -31,10 +31,11 @@ O projeto segue arquitetura em camadas com os seguintes pacotes:
 ```
 com/
   ├── config/           → configurações globais (FeignConfig)
-  ├── domains/          → entidades e DTOs
+  ├── domains/          → entidades, DTOs e enums
   ├── infra/
   │   ├── adapter/      → Adapters de cotação (Strategy + Adapter)
   │   ├── client/       → interfaces OpenFeign das APIs externas
+  │   ├── converters/   → conversores JPA de enum para banco
   │   └── facade/       → Facades de isolamento das APIs
   ├── mappers/          → conversão Entity ↔ DTO
   ├── repositories/     → interfaces JPA
@@ -145,6 +146,7 @@ O projeto sobe em `http://localhost:8080`
 | GET | `/corretoras/{id}` | Busca corretora por ID |
 | GET | `/corretoras/cnpj/{cnpj}` | Busca corretora por CNPJ |
 | GET | `/corretoras/cep/{cep}` | Consulta endereço pelo CEP |
+| DELETE | `/corretoras/{id}` | Exclui corretora |
 
 ### Ações
 
@@ -155,21 +157,50 @@ O projeto sobe em `http://localhost:8080`
 | GET | `/acoes/{id}` | Busca ação por ID |
 | GET | `/acoes/ticker/{ticker}` | Busca ação por ticker |
 | PUT | `/acoes/{id}/atualizar-cotacao` | Atualiza cotação da ação |
+| DELETE | `/acoes/{id}` | Exclui ação |
+
+### Carteiras
+
+| Método | Endpoint | Descrição |
+|---|---|---|
+| POST | `/carteiras` | Cria uma nova carteira |
+| GET | `/carteiras` | Lista todas as carteiras |
+| GET | `/carteiras/{id}` | Busca carteira com posições e lucro/prejuízo |
+| POST | `/carteiras/{id}/comprar` | Registra compra de ação |
+| POST | `/carteiras/{id}/vender` | Registra venda de ação |
+| GET | `/carteiras/{id}/operacoes` | Lista histórico completo da carteira |
+| DELETE | `/carteiras/{id}` | Exclui carteira |
+
+### Operações
+
+| Método | Endpoint | Descrição |
+|---|---|---|
+| GET | `/operacoes/carteira-acao/{id}` | Histórico de uma posição específica |
+| GET | `/operacoes/carteira-acao/{id}/compras` | Filtra só as compras |
+| GET | `/operacoes/carteira-acao/{id}/vendas` | Filtra só as vendas |
+
+### Exclusão de recursos
+
+| Método | Endpoint | Descrição | Validação |
+|---|---|---|---|
+| DELETE | `/corretoras/{id}` | Exclui corretora | Não pode ter carteiras vinculadas |
+| DELETE | `/carteiras/{id}` | Exclui carteira | Não pode ter posições ativas |
+| DELETE | `/acoes/{id}` | Exclui ação | Não pode estar em nenhuma carteira |
 
 ---
 
 ## 🧪 Exemplos de uso
 
-### Cadastrar corretora
+### 1. Cadastrar corretora
 
 ```json
 POST /corretoras
 {
-    "cnpj": "11.222.333/0001-81"
+    "cnpj": "02332886000104"
 }
 ```
 
-### Cadastrar ação brasileira
+### 2. Cadastrar ações
 
 ```json
 POST /acoes
@@ -179,7 +210,13 @@ POST /acoes
 }
 ```
 
-### Cadastrar ação americana
+```json
+POST /acoes
+{
+    "ticker": "VALE3",
+    "mercado": "BR"
+}
+```
 
 ```json
 POST /acoes
@@ -189,10 +226,83 @@ POST /acoes
 }
 ```
 
-### Atualizar cotação
+### 3. Criar carteira
+
+```json
+POST /carteiras
+{
+    "nome": "Carteira Principal",
+    "corretoraId": 1
+}
+```
+
+### 4. Registrar compras
+
+```json
+POST /carteiras/1/comprar
+{
+    "ticker": "PETR4",
+    "quantidade": 10,
+    "precoUnitario": 49.08
+}
+```
+
+```json
+POST /carteiras/1/comprar
+{
+    "ticker": "PETR4",
+    "quantidade": 5,
+    "precoUnitario": 52.00
+}
+```
+
+```json
+POST /carteiras/1/comprar
+{
+    "ticker": "VALE3",
+    "quantidade": 8,
+    "precoUnitario": 68.50
+}
+```
+
+```json
+POST /carteiras/1/comprar
+{
+    "ticker": "AAPL",
+    "quantidade": 3,
+    "precoUnitario": 276.83
+}
+```
+
+### 5. Registrar venda
+
+```json
+POST /carteiras/1/vender
+{
+    "ticker": "PETR4",
+    "quantidade": 5,
+    "precoUnitario": 55.00
+}
+```
+
+### 6. Atualizar cotação
 
 ```
 PUT /acoes/1/atualizar-cotacao
+```
+
+### 7. Ver carteira com lucro/prejuízo
+
+```
+GET /carteiras/1
+```
+
+### 8. Ver histórico de operações
+
+```
+GET /carteiras/1/operacoes
+GET /operacoes/carteira-acao/1/compras
+GET /operacoes/carteira-acao/1/vendas
 ```
 
 ---
@@ -226,7 +336,72 @@ Acao
 ├── moeda (String)
 ├── cotacaoAtual (BigDecimal)
 └── dataHoraCotacao (LocalDateTime)
+
+Carteira
+├── id (Long)
+├── nome (String)
+├── corretora (Corretora)
+├── posicoes (List<CarteiraAcao>)
+└── dataCriacao (LocalDateTime)
+
+CarteiraAcao
+├── id (Long)
+├── carteira (Carteira)
+├── acao (Acao)
+├── quantidadeAtual (Integer)
+├── precoMedioCompra (BigDecimal)
+└── valorTotalInvestido (BigDecimal)
+
+Operacao
+├── id (Long)
+├── carteiraAcao (CarteiraAcao)
+├── tipo (TipoOperacao: COMPRA | VENDA)
+├── quantidade (Integer)
+├── precoUnitario (BigDecimal)
+├── valorTotal (BigDecimal)
+└── dataOperacao (LocalDateTime)
 ```
+
+---
+
+## 💰 Cálculo de Lucro/Prejuízo
+
+### Preço Médio de Compra
+
+O sistema calcula automaticamente o preço médio de compra a cada nova compra:
+
+```
+Exemplo:
+  Compra 10 ações a R$ 49,08 → total investido: R$ 490,80
+  Compra 5 ações a R$ 52,00  → total investido: R$ 260,00
+
+  Total de ações: 15
+  Total investido: R$ 750,80
+  Preço médio: 750,80 ÷ 15 = R$ 50,05
+```
+
+### Lucro Realizado vs. Não-Realizado
+
+O campo `lucroOuPrejuizo` retornado pela API combina dois componentes:
+
+```
+lucroOuPrejuizo = lucroRealizado + lucroNaoRealizado
+
+lucroRealizado    = Σ (precoVenda - precoMedioCompra) × qtdVendida  (acumulado a cada venda)
+lucroNaoRealizado = (cotacaoAtual - precoMedioCompra) × quantidadeAtual
+```
+
+**Exemplo:**
+```
+Compra 10 ações a R$ 20 → total investido: R$ 200
+Vende  10 ações a R$ 30 → lucroRealizado = (30-20) × 10 = R$ 100
+Compra  5 ações a R$ 25 → novo preço médio = R$ 25
+Cotação atual = R$ 30   → lucroNaoRealizado = (30-25) × 5 = R$ 25
+
+lucroOuPrejuizo = 100 + 25 = R$ 125
+```
+
+Ao zerar uma posição (`quantidadeAtual = 0`), o `lucroRealizado` é preservado no registro. Uma nova compra reutiliza o registro existente, resetando apenas os dados de compra (preço médio, valor investido) sem apagar o histórico de vendas.
 
 ---
 
@@ -253,5 +428,8 @@ O sistema trata os seguintes cenários de falha:
 - Cadastro duplicado de corretora por CNPJ
 - Cadastro duplicado de ação por ticker
 - Mercado não suportado
+- Carteira duplicada com mesmo nome na mesma corretora
+- Venda com quantidade maior do que a disponível na carteira
+- Ação não cadastrada no sistema antes de comprar
 - API externa fora do ar
 - Limite de requisições excedido

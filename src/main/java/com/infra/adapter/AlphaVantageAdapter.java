@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 
 @Component
@@ -14,7 +16,6 @@ public class AlphaVantageAdapter implements CotacaoAdapter {
 
     @Autowired
     private AlphaVantageClient alphaVantageClient;
-
 
     @Value("${api.alphavantage.key}")
     private String apiKey;
@@ -31,12 +32,25 @@ public class AlphaVantageAdapter implements CotacaoAdapter {
                 .buscarCotacao("GLOBAL_QUOTE", ticker, apiKey)
                 .getGlobalQuote();
 
+        if (quote == null || quote.getCotacaoAtual() == null) {
+            throw new RuntimeException(
+                    "Ticker '" + ticker + "' não encontrado no mercado americano. " +
+                    "Verifique o ticker ou tente novamente mais tarde.");
+        }
+
+        String nomeEmpresa = null;
+        try {
+            nomeEmpresa = alphaVantageClient
+                    .buscarOverview("OVERVIEW", ticker, apiKey)
+                    .getNomeEmpresa();
+        } catch (Exception ignored) {}
+
         AcaoResponseDTO dto = new AcaoResponseDTO();
         dto.setTicker(quote.getTicker());
-        dto.setNomeEmpresa(null);
+        dto.setNomeEmpresa(nomeEmpresa);
         dto.setMercado("EUA");
         dto.setMoeda("USD");
-        dto.setCotacaoAtual(quote.getCotacaoAtual());
+        dto.setCotacaoAtual(quote.getCotacaoAtual().setScale(2, RoundingMode.HALF_UP));
         dto.setDataHoraCotacao(LocalDateTime.now());
         return dto;
     }

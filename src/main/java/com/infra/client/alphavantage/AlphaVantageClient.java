@@ -1,5 +1,6 @@
 package com.infra.client.alphavantage;
 
+import com.infra.client.alphavantage.dtos.AlphaVantageOverviewDTO;
 import com.infra.client.alphavantage.dtos.AlphaVantageResponseDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,13 @@ public interface AlphaVantageClient {
 
     @GetMapping("/query")
     AlphaVantageResponseDTO buscarCotacao(
+            @RequestParam("function") String function,
+            @RequestParam("symbol") String symbol,
+            @RequestParam("apikey") String apiKey
+    );
+
+    @GetMapping("/query")
+    AlphaVantageOverviewDTO buscarOverview(
             @RequestParam("function") String function,
             @RequestParam("symbol") String symbol,
             @RequestParam("apikey") String apiKey
