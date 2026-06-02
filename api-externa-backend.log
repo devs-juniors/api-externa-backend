@@ -27239,3 +27239,294 @@ Identify and stop the process that's listening on port 8080 or configure this ap
 2026-06-02T18:11:40.895-03:00  INFO 11284 --- [api-externa-backend] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
 2026-06-02T18:11:40.899-03:00  INFO 11284 --- [api-externa-backend] [restartedMain] com.ApiExternaBackendApplication         : Started ApiExternaBackendApplication in 0.385 seconds (process running for 4836.872)
 2026-06-02T18:11:40.899-03:00  INFO 11284 --- [api-externa-backend] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-06-02T18:18:04.233-03:00  INFO 11284 --- [api-externa-backend] [restartedMain] com.ApiExternaBackendApplication         : Starting ApiExternaBackendApplication using Java 17.0.16 with PID 11284 (/Users/lucas/Documents/Programacao/Spring/api-externa-backend/target/classes started by lucas in /Users/lucas/Documents/Programacao/Spring/api-externa-backend)
+2026-06-02T18:18:04.234-03:00  INFO 11284 --- [api-externa-backend] [restartedMain] com.ApiExternaBackendApplication         : The following 1 profile is active: "test"
+2026-06-02T18:18:04.363-03:00  INFO 11284 --- [api-externa-backend] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-02T18:18:04.380-03:00  INFO 11284 --- [api-externa-backend] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 16 ms. Found 5 JPA repository interfaces.
+2026-06-02T18:18:04.393-03:00  INFO 11284 --- [api-externa-backend] [restartedMain] o.s.cloud.context.scope.GenericScope     : BeanFactory id=c1f37d5d-85d2-37aa-bb8e-d29ff3da3899
+2026-06-02T18:18:04.416-03:00  INFO 11284 --- [api-externa-backend] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-06-02T18:18:04.416-03:00  INFO 11284 --- [api-externa-backend] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-02T18:18:04.416-03:00  INFO 11284 --- [api-externa-backend] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.40]
+2026-06-02T18:18:04.421-03:00  INFO 11284 --- [api-externa-backend] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-06-02T18:18:04.421-03:00  INFO 11284 --- [api-externa-backend] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 187 ms
+2026-06-02T18:18:04.436-03:00  INFO 11284 --- [api-externa-backend] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Starting...
+2026-06-02T18:18:04.436-03:00  INFO 11284 --- [api-externa-backend] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-8 - Added connection conn80: url=jdbc:h2:mem:cursodb user=SA
+2026-06-02T18:18:04.437-03:00  INFO 11284 --- [api-externa-backend] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Start completed.
+2026-06-02T18:18:04.437-03:00  INFO 11284 --- [api-externa-backend] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-02T18:18:04.437-03:00  INFO 11284 --- [api-externa-backend] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration boolean -> org.hibernate.type.BasicTypeReference@57cb1d46
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration boolean -> org.hibernate.type.BasicTypeReference@57cb1d46
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Boolean -> org.hibernate.type.BasicTypeReference@57cb1d46
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration numeric_boolean -> org.hibernate.type.BasicTypeReference@23611162
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration org.hibernate.type.NumericBooleanConverter -> org.hibernate.type.BasicTypeReference@23611162
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration true_false -> org.hibernate.type.BasicTypeReference@6b011a5f
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration org.hibernate.type.TrueFalseConverter -> org.hibernate.type.BasicTypeReference@6b011a5f
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration yes_no -> org.hibernate.type.BasicTypeReference@47b60609
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration org.hibernate.type.YesNoConverter -> org.hibernate.type.BasicTypeReference@47b60609
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration byte -> org.hibernate.type.BasicTypeReference@48981294
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration byte -> org.hibernate.type.BasicTypeReference@48981294
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Byte -> org.hibernate.type.BasicTypeReference@48981294
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration binary -> org.hibernate.type.BasicTypeReference@63d9e0e4
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration byte[] -> org.hibernate.type.BasicTypeReference@63d9e0e4
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration [B -> org.hibernate.type.BasicTypeReference@63d9e0e4
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration binary_wrapper -> org.hibernate.type.BasicTypeReference@7f1ca5bd
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration wrapper-binary -> org.hibernate.type.BasicTypeReference@7f1ca5bd
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration image -> org.hibernate.type.BasicTypeReference@536ea47a
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration blob -> org.hibernate.type.BasicTypeReference@1da063f8
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Blob -> org.hibernate.type.BasicTypeReference@1da063f8
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration materialized_blob -> org.hibernate.type.BasicTypeReference@2aa486f1
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration materialized_blob_wrapper -> org.hibernate.type.BasicTypeReference@308fef55
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration short -> org.hibernate.type.BasicTypeReference@16e4c04a
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration short -> org.hibernate.type.BasicTypeReference@16e4c04a
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Short -> org.hibernate.type.BasicTypeReference@16e4c04a
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration integer -> org.hibernate.type.BasicTypeReference@8c5cecd
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration int -> org.hibernate.type.BasicTypeReference@8c5cecd
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Integer -> org.hibernate.type.BasicTypeReference@8c5cecd
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration long -> org.hibernate.type.BasicTypeReference@6d8522a
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration long -> org.hibernate.type.BasicTypeReference@6d8522a
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Long -> org.hibernate.type.BasicTypeReference@6d8522a
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration float -> org.hibernate.type.BasicTypeReference@49e2f0e3
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration float -> org.hibernate.type.BasicTypeReference@49e2f0e3
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Float -> org.hibernate.type.BasicTypeReference@49e2f0e3
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration double -> org.hibernate.type.BasicTypeReference@79b48f05
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration double -> org.hibernate.type.BasicTypeReference@79b48f05
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Double -> org.hibernate.type.BasicTypeReference@79b48f05
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration big_integer -> org.hibernate.type.BasicTypeReference@5f218558
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.math.BigInteger -> org.hibernate.type.BasicTypeReference@5f218558
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration big_decimal -> org.hibernate.type.BasicTypeReference@1b2cd594
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.math.BigDecimal -> org.hibernate.type.BasicTypeReference@1b2cd594
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration character -> org.hibernate.type.BasicTypeReference@45174bfa
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration char -> org.hibernate.type.BasicTypeReference@45174bfa
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Character -> org.hibernate.type.BasicTypeReference@45174bfa
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration character_nchar -> org.hibernate.type.BasicTypeReference@188638fa
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration string -> org.hibernate.type.BasicTypeReference@4b5e65f7
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.String -> org.hibernate.type.BasicTypeReference@4b5e65f7
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration nstring -> org.hibernate.type.BasicTypeReference@3623997d
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration characters -> org.hibernate.type.BasicTypeReference@49145cd8
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration char[] -> org.hibernate.type.BasicTypeReference@49145cd8
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration [C -> org.hibernate.type.BasicTypeReference@49145cd8
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration wrapper-characters -> org.hibernate.type.BasicTypeReference@60fcece8
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration text -> org.hibernate.type.BasicTypeReference@58354cdd
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration ntext -> org.hibernate.type.BasicTypeReference@7277ced7
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration clob -> org.hibernate.type.BasicTypeReference@19eeaedd
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Clob -> org.hibernate.type.BasicTypeReference@19eeaedd
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration nclob -> org.hibernate.type.BasicTypeReference@1ef29aa4
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.NClob -> org.hibernate.type.BasicTypeReference@1ef29aa4
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration materialized_clob -> org.hibernate.type.BasicTypeReference@6cd37e03
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration materialized_clob_char_array -> org.hibernate.type.BasicTypeReference@201e1438
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration materialized_clob_character_array -> org.hibernate.type.BasicTypeReference@4ceacea0
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration materialized_nclob -> org.hibernate.type.BasicTypeReference@46c75a23
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration materialized_nclob_character_array -> org.hibernate.type.BasicTypeReference@3193179e
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration materialized_nclob_char_array -> org.hibernate.type.BasicTypeReference@61fc7a40
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration Duration -> org.hibernate.type.BasicTypeReference@7b793711
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.Duration -> org.hibernate.type.BasicTypeReference@7b793711
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration LocalDateTime -> org.hibernate.type.BasicTypeReference@7137c1f
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.LocalDateTime -> org.hibernate.type.BasicTypeReference@7137c1f
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration LocalDate -> org.hibernate.type.BasicTypeReference@2e95a484
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.LocalDate -> org.hibernate.type.BasicTypeReference@2e95a484
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration LocalTime -> org.hibernate.type.BasicTypeReference@2cb9f56c
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.LocalTime -> org.hibernate.type.BasicTypeReference@2cb9f56c
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration OffsetDateTime -> org.hibernate.type.BasicTypeReference@1e4a8e55
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.OffsetDateTime -> org.hibernate.type.BasicTypeReference@1e4a8e55
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration OffsetDateTimeWithTimezone -> org.hibernate.type.BasicTypeReference@2a5fa07
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration OffsetDateTimeWithoutTimezone -> org.hibernate.type.BasicTypeReference@197cf53
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration OffsetTime -> org.hibernate.type.BasicTypeReference@62665898
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.OffsetTime -> org.hibernate.type.BasicTypeReference@62665898
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration OffsetTimeUtc -> org.hibernate.type.BasicTypeReference@28144aa7
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration OffsetTimeWithTimezone -> org.hibernate.type.BasicTypeReference@54cf860
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration OffsetTimeWithoutTimezone -> org.hibernate.type.BasicTypeReference@3a9e42cd
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration ZonedDateTime -> org.hibernate.type.BasicTypeReference@6a6c7f9e
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.ZonedDateTime -> org.hibernate.type.BasicTypeReference@6a6c7f9e
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration ZonedDateTimeWithTimezone -> org.hibernate.type.BasicTypeReference@60a74106
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration ZonedDateTimeWithoutTimezone -> org.hibernate.type.BasicTypeReference@24a2a8a
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration date -> org.hibernate.type.BasicTypeReference@4a0a9824
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Date -> org.hibernate.type.BasicTypeReference@4a0a9824
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration time -> org.hibernate.type.BasicTypeReference@43938e74
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Time -> org.hibernate.type.BasicTypeReference@43938e74
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration timestamp -> org.hibernate.type.BasicTypeReference@19e65871
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Timestamp -> org.hibernate.type.BasicTypeReference@19e65871
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Date -> org.hibernate.type.BasicTypeReference@19e65871
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration calendar -> org.hibernate.type.BasicTypeReference@4a2b2fbd
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Calendar -> org.hibernate.type.BasicTypeReference@4a2b2fbd
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.GregorianCalendar -> org.hibernate.type.BasicTypeReference@4a2b2fbd
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration calendar_date -> org.hibernate.type.BasicTypeReference@54fe5564
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration calendar_time -> org.hibernate.type.BasicTypeReference@bc191a1
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration instant -> org.hibernate.type.BasicTypeReference@204f7578
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.Instant -> org.hibernate.type.BasicTypeReference@204f7578
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration uuid -> org.hibernate.type.BasicTypeReference@330ae00b
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.UUID -> org.hibernate.type.BasicTypeReference@330ae00b
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration pg-uuid -> org.hibernate.type.BasicTypeReference@330ae00b
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration uuid-binary -> org.hibernate.type.BasicTypeReference@15f9c67b
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration uuid-char -> org.hibernate.type.BasicTypeReference@123201fc
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration class -> org.hibernate.type.BasicTypeReference@498d5277
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Class -> org.hibernate.type.BasicTypeReference@498d5277
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration currency -> org.hibernate.type.BasicTypeReference@2de3e9f5
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration Currency -> org.hibernate.type.BasicTypeReference@2de3e9f5
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Currency -> org.hibernate.type.BasicTypeReference@2de3e9f5
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration locale -> org.hibernate.type.BasicTypeReference@7672382c
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Locale -> org.hibernate.type.BasicTypeReference@7672382c
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration serializable -> org.hibernate.type.BasicTypeReference@74cdeaff
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.io.Serializable -> org.hibernate.type.BasicTypeReference@74cdeaff
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration timezone -> org.hibernate.type.BasicTypeReference@57f000fb
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.TimeZone -> org.hibernate.type.BasicTypeReference@57f000fb
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration ZoneOffset -> org.hibernate.type.BasicTypeReference@656ef7b1
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.ZoneOffset -> org.hibernate.type.BasicTypeReference@656ef7b1
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration url -> org.hibernate.type.BasicTypeReference@23a0068
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.net.URL -> org.hibernate.type.BasicTypeReference@23a0068
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration vector -> org.hibernate.type.BasicTypeReference@193b88c2
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration float_vector -> org.hibernate.type.BasicTypeReference@4e9bb4c6
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration double_vector -> org.hibernate.type.BasicTypeReference@5cda01db
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration byte_vector -> org.hibernate.type.BasicTypeReference@e317368
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration row_version -> org.hibernate.type.BasicTypeReference@4b0987f4
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration object -> org.hibernate.type.JavaObjectType@31e440b8
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Object -> org.hibernate.type.JavaObjectType@31e440b8
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration null -> org.hibernate.type.NullType@3534f57b
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_date -> org.hibernate.type.BasicTypeReference@54242e6
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_time -> org.hibernate.type.BasicTypeReference@c23155a
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_timestamp -> org.hibernate.type.BasicTypeReference@1e340ce4
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_calendar -> org.hibernate.type.BasicTypeReference@7f285c68
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_calendar_date -> org.hibernate.type.BasicTypeReference@686a6419
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_calendar_time -> org.hibernate.type.BasicTypeReference@7cf7358b
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_binary -> org.hibernate.type.BasicTypeReference@421a55dd
+2026-06-02T18:18:04.438-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_serializable -> org.hibernate.type.BasicTypeReference@7f6c8aea
+2026-06-02T18:18:04.442-03:00  INFO 11284 --- [api-externa-backend] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-02T18:18:04.443-03:00  INFO 11284 --- [api-externa-backend] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-8)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-02T18:18:04.443-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] o.h.t.d.jdbc.spi.JdbcTypeRegistry        : addDescriptor(NCharTypeDescriptor) replaced previous registration(CharTypeDescriptor)
+2026-06-02T18:18:04.443-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] o.h.t.d.jdbc.spi.JdbcTypeRegistry        : addDescriptor(NVarcharTypeDescriptor) replaced previous registration(VarcharTypeDescriptor)
+2026-06-02T18:18:04.443-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] o.h.t.d.jdbc.spi.JdbcTypeRegistry        : addDescriptor(LongNVarcharTypeDescriptor) replaced previous registration(LongVarcharTypeDescriptor)
+2026-06-02T18:18:04.443-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] o.h.t.d.jdbc.spi.JdbcTypeRegistry        : addDescriptor(NClobTypeDescriptor(DEFAULT)) replaced previous registration(ClobTypeDescriptor(DEFAULT))
+2026-06-02T18:18:04.443-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] o.h.t.d.jdbc.spi.JdbcTypeRegistry        : addDescriptor(TimestampUtcDescriptor) replaced previous registration(TimestampUtcDescriptor)
+2026-06-02T18:18:04.443-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration org.hibernate.type.DurationType -> basicType@134(java.time.Duration,3015)
+2026-06-02T18:18:04.443-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration Duration -> basicType@134(java.time.Duration,3015)
+2026-06-02T18:18:04.443-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.Duration -> basicType@134(java.time.Duration,3015)
+2026-06-02T18:18:04.443-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] o.h.type.spi.TypeConfiguration$Scope     : Scoping TypeConfiguration [org.hibernate.type.spi.TypeConfiguration@4f356a5a] to MetadataBuildingContext [org.hibernate.boot.internal.MetadataBuildingContextRootImpl@37a2bffa]
+2026-06-02T18:18:04.477-03:00  INFO 11284 --- [api-externa-backend] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-02T18:18:04.477-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] o.h.type.spi.TypeConfiguration$Scope     : Scoping TypeConfiguration [org.hibernate.type.spi.TypeConfiguration@4f356a5a] to SessionFactoryImplementor [org.hibernate.internal.SessionFactoryImpl@2453b540]
+2026-06-02T18:18:04.477-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.SQL                        : 
+    drop table if exists tb_acao cascade 
+2026-06-02T18:18:04.477-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.SQL                        : 
+    drop table if exists tb_carteira cascade 
+2026-06-02T18:18:04.477-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.SQL                        : 
+    drop table if exists tb_carteira_acao cascade 
+2026-06-02T18:18:04.477-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.SQL                        : 
+    drop table if exists tb_corretora cascade 
+2026-06-02T18:18:04.477-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.SQL                        : 
+    drop table if exists tb_operacao cascade 
+2026-06-02T18:18:04.477-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.SQL                        : 
+    drop sequence if exists seq_acao
+2026-06-02T18:18:04.477-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.SQL                        : 
+    drop sequence if exists seq_carteira
+2026-06-02T18:18:04.477-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.SQL                        : 
+    drop sequence if exists seq_carteira_acao
+2026-06-02T18:18:04.477-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.SQL                        : 
+    drop sequence if exists seq_corretora
+2026-06-02T18:18:04.477-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.SQL                        : 
+    drop sequence if exists seq_operacao
+2026-06-02T18:18:04.478-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.SQL                        : 
+    create sequence seq_acao start with 1 increment by 1
+2026-06-02T18:18:04.478-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.SQL                        : 
+    create sequence seq_carteira start with 1 increment by 1
+2026-06-02T18:18:04.478-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.SQL                        : 
+    create sequence seq_carteira_acao start with 1 increment by 1
+2026-06-02T18:18:04.478-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.SQL                        : 
+    create sequence seq_corretora start with 1 increment by 1
+2026-06-02T18:18:04.478-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.SQL                        : 
+    create sequence seq_operacao start with 1 increment by 1
+2026-06-02T18:18:04.478-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.SQL                        : 
+    create table tb_acao (
+        cotacao_atual numeric(19,4),
+        data_hora_cotacao timestamp(6),
+        id bigint not null,
+        mercado varchar(255) not null,
+        moeda varchar(255) not null,
+        nome_empresa varchar(255),
+        ticker varchar(255) not null unique,
+        primary key (id)
+    )
+2026-06-02T18:18:04.478-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.SQL                        : 
+    create table tb_carteira (
+        corretora_id bigint not null,
+        data_criacao timestamp(6) not null,
+        id bigint not null,
+        nome varchar(100) not null,
+        primary key (id)
+    )
+2026-06-02T18:18:04.478-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.SQL                        : 
+    create table tb_carteira_acao (
+        lucro_realizado numeric(19,2) not null,
+        preco_medio_compra numeric(19,2) not null,
+        preco_medio_venda numeric(19,2),
+        quantidade_atual integer not null,
+        quantidade_vendida integer not null,
+        valor_total_investido numeric(19,2) not null,
+        acao_id bigint not null,
+        carteira_id bigint not null,
+        id bigint not null,
+        primary key (id)
+    )
+2026-06-02T18:18:04.478-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.SQL                        : 
+    create table tb_corretora (
+        uf varchar(2),
+        validada_na_cvm boolean not null,
+        cep varchar(8),
+        data_cadastro timestamp(6) not null,
+        id bigint not null,
+        numero varchar(10),
+        cnpj varchar(14) not null unique,
+        situacao_cadastral varchar(30),
+        telefone varchar(30),
+        bairro varchar(50),
+        cidade varchar(50),
+        complemento varchar(100),
+        email varchar(100),
+        logradouro varchar(100),
+        nome_fantasia varchar(100),
+        razao_social varchar(100) not null,
+        primary key (id)
+    )
+2026-06-02T18:18:04.478-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.SQL                        : 
+    create table tb_operacao (
+        preco_unitario numeric(19,2) not null,
+        quantidade integer not null,
+        tipo integer not null,
+        valor_total numeric(19,2) not null,
+        carteira_acao_id bigint not null,
+        data_operacao timestamp(6) not null,
+        id bigint not null,
+        primary key (id)
+    )
+2026-06-02T18:18:04.479-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.SQL                        : 
+    alter table if exists tb_carteira 
+       add constraint FKmxnbc24araflipyoe08vqunol 
+       foreign key (corretora_id) 
+       references tb_corretora
+2026-06-02T18:18:04.479-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.SQL                        : 
+    alter table if exists tb_carteira_acao 
+       add constraint FKcvjvh54k1p9qyg7u8d3f3bffr 
+       foreign key (acao_id) 
+       references tb_acao
+2026-06-02T18:18:04.479-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.SQL                        : 
+    alter table if exists tb_carteira_acao 
+       add constraint FKc8xd8fqnm9pmwk72ck46jijwk 
+       foreign key (carteira_id) 
+       references tb_carteira
+2026-06-02T18:18:04.479-03:00 DEBUG 11284 --- [api-externa-backend] [restartedMain] org.hibernate.SQL                        : 
+    alter table if exists tb_operacao 
+       add constraint FKdi34ygd1h77txe3oqdyg4iwcj 
+       foreign key (carteira_acao_id) 
+       references tb_carteira_acao
+2026-06-02T18:18:04.479-03:00 TRACE 11284 --- [api-externa-backend] [restartedMain] o.h.type.spi.TypeConfiguration$Scope     : Handling #sessionFactoryCreated from [org.hibernate.internal.SessionFactoryImpl@2453b540] for TypeConfiguration
+2026-06-02T18:18:04.479-03:00  INFO 11284 --- [api-externa-backend] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-02T18:18:04.490-03:00  WARN 11284 --- [api-externa-backend] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-02T18:18:04.495-03:00  INFO 11284 --- [api-externa-backend] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-06-02T18:18:04.574-03:00  INFO 11284 --- [api-externa-backend] [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:cursodb'
+2026-06-02T18:18:04.590-03:00  INFO 11284 --- [api-externa-backend] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-06-02T18:18:04.594-03:00  INFO 11284 --- [api-externa-backend] [restartedMain] com.ApiExternaBackendApplication         : Started ApiExternaBackendApplication in 0.375 seconds (process running for 5220.564)
+2026-06-02T18:18:04.594-03:00  INFO 11284 --- [api-externa-backend] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
