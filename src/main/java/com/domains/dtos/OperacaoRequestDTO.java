@@ -7,8 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,8 +18,4 @@ public class OperacaoRequestDTO {
     @NotNull(message = "Quantidade é obrigatória")
     @Positive(message = "Quantidade deve ser maior que zero")
     private Integer quantidade;
-
-    @NotNull(message = "Preço unitário é obrigatório")
-    @Positive(message = "Preço deve ser maior que zero")
-    private BigDecimal precoUnitario;
 }

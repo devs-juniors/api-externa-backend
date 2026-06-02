@@ -19,19 +19,32 @@ public class CarteiraAcaoMapper {
         dto.setMoeda(carteiraAcao.getAcao().getMoeda());
         dto.setQuantidadeAtual(carteiraAcao.getQuantidadeAtual());
         dto.setPrecoMedioCompra(carteiraAcao.getPrecoMedioCompra());
+        dto.setPrecoMedioVenda(carteiraAcao.getPrecoMedioVenda());
+        dto.setQuantidadeVendida(carteiraAcao.getQuantidadeVendida());
+        if (carteiraAcao.getQuantidadeVendida() != null && carteiraAcao.getQuantidadeVendida() > 0
+                && carteiraAcao.getPrecoMedioVenda() != null) {
+            dto.setLucroMedioPorAcao(carteiraAcao.getPrecoMedioVenda()
+                    .subtract(carteiraAcao.getPrecoMedioCompra())
+                    .setScale(2, RoundingMode.HALF_UP));
+        }
+        BigDecimal realizado = carteiraAcao.getLucroRealizado() != null
+                ? carteiraAcao.getLucroRealizado() : BigDecimal.ZERO;
+        dto.setLucroRealizado(realizado);
         dto.setValorTotalInvestido(carteiraAcao.getValorTotalInvestido());
         dto.setCotacaoAtual(carteiraAcao.getAcao().getCotacaoAtual());
 
+        BigDecimal naoRealizado = carteiraAcao.getQuantidadeAtual() > 0
+                ? carteiraAcao.getAcao().getCotacaoAtual()
+                        .subtract(carteiraAcao.getPrecoMedioCompra())
+                        .multiply(new BigDecimal(carteiraAcao.getQuantidadeAtual()))
+                        .setScale(2, RoundingMode.HALF_UP)
+                : BigDecimal.ZERO;
 
-        BigDecimal lucro = carteiraAcao.getAcao().getCotacaoAtual()
-                .subtract(carteiraAcao.getPrecoMedioCompra())
-                .multiply(new BigDecimal(carteiraAcao.getQuantidadeAtual()))
-                .setScale(2, RoundingMode.HALF_UP);
-        dto.setLucroOuPrejuizo(lucro);
-
+        BigDecimal lucroTotal = naoRealizado.add(realizado).setScale(2, RoundingMode.HALF_UP);
+        dto.setLucroOuPrejuizo(lucroTotal);
 
         if (carteiraAcao.getValorTotalInvestido().compareTo(BigDecimal.ZERO) > 0) {
-            BigDecimal percentual = lucro
+            BigDecimal percentual = lucroTotal
                     .divide(carteiraAcao.getValorTotalInvestido(), 4, RoundingMode.HALF_UP)
                     .multiply(new BigDecimal("100"))
                     .setScale(2, RoundingMode.HALF_UP);

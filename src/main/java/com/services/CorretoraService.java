@@ -8,6 +8,7 @@ import com.infra.client.cnpj.dto.CnpjResponseDTO;
 import com.infra.facade.CepFacade;
 import com.infra.facade.CnpjFacade;
 import com.mappers.CorretoraMapper;
+import com.repositories.CarteiraRepository;
 import com.repositories.CorretoraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,9 @@ public class CorretoraService {
     private CorretoraRepository corretoraRepository;
 
     @Autowired
+    private CarteiraRepository carteiraRepository;
+
+    @Autowired
     private CorretoraMapper corretoraMapper;
 
     public CorretoraResponseDTO cadastrar(CorretoraRequestDTO request) {
@@ -42,6 +46,14 @@ public class CorretoraService {
 
         CnpjResponseDTO dadosCnpj = cnpjFacade.buscar(cnpjLimpo);
 
+        // Regra simplificada de elegibilidade CVM: situação ATIVA + natureza jurídica do tipo sociedade
+        boolean ativa = "ATIVA".equalsIgnoreCase(dadosCnpj.getSituacaoCadastral());
+        boolean sociedade = dadosCnpj.getNaturezaJuridica() != null
+                && dadosCnpj.getNaturezaJuridica().toUpperCase().contains("SOCIEDADE");
+
+        if (!ativa || !sociedade) {
+            throw new RuntimeException("Corretora não é validada na CVM e não pode ser cadastrada");
+        }
 
         CepResponseDTO dadosCep = cepFacade.buscar(dadosCnpj.getCep());
 
@@ -60,7 +72,7 @@ public class CorretoraService {
         corretora.setBairro(dadosCep.getBairro());
         corretora.setCidade(dadosCep.getCidade());
         corretora.setUf(dadosCep.getUf());
-        corretora.setValidadaNaCvm(false);
+        corretora.setValidadaNaCvm(true);
 
 
         Corretora salva = corretoraRepository.save(corretora);
@@ -86,6 +98,17 @@ public class CorretoraService {
         Corretora corretora = corretoraRepository.findByCnpj(cnpjLimpo)
                 .orElseThrow(() -> new RuntimeException("Corretora não encontrada"));
         return corretoraMapper.toResponseDTO(corretora);
+    }
+
+    public void excluir(Long id) {
+        Corretora corretora = corretoraRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Corretora não encontrada"));
+
+        if (carteiraRepository.existsByCorretoraId(id)) {
+            throw new RuntimeException("Não é possível excluir uma corretora que possui carteiras vinculadas");
+        }
+
+        corretoraRepository.delete(corretora);
     }
 
     public CepResponseDTO buscarEnderecoPorCep(String cep) {

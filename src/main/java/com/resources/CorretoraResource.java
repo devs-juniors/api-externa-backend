@@ -61,4 +61,11 @@ public class CorretoraResource {
             return ResponseEntity.ok(endereco);
         }
 
+
+        @DeleteMapping("/{id}")
+        public ResponseEntity<Void> excluir(@PathVariable Long id) {
+            corretoraService.excluir(id);
+            return ResponseEntity.noContent().build();
+        }
+
 }

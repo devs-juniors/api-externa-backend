@@ -68,4 +68,10 @@ public class CarteiraResource {
         List<OperacaoResponseDTO> operacoes = carteiraService.listarOperacoes(id);
         return ResponseEntity.ok(operacoes);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> excluir(@PathVariable Long id) {
+        carteiraService.excluir(id);
+        return ResponseEntity.noContent().build();
+    }
 }

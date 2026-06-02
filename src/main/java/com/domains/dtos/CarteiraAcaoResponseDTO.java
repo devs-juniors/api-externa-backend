@@ -18,6 +18,10 @@ public class CarteiraAcaoResponseDTO {
     private String moeda;
     private Integer quantidadeAtual;
     private BigDecimal precoMedioCompra;
+    private BigDecimal precoMedioVenda;
+    private Integer quantidadeVendida;
+    private BigDecimal lucroMedioPorAcao;
+    private BigDecimal lucroRealizado;
     private BigDecimal valorTotalInvestido;
     private BigDecimal cotacaoAtual;
     private BigDecimal lucroOuPrejuizo;

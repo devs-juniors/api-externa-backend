@@ -1,6 +1,7 @@
 package com.services;
 
 import com.domains.*;
+import com.domains.dtos.AcaoResponseDTO;
 import com.domains.dtos.CarteiraRequestDTO;
 import com.domains.dtos.CarteiraResponseDTO;
 import com.domains.dtos.OperacaoRequestDTO;
@@ -34,6 +35,9 @@ public class CarteiraService {
 
     @Autowired
     private AcaoRepository acaoRepository;
+
+    @Autowired
+    private AcaoService acaoService;
 
     @Autowired
     private CarteiraMapper carteiraMapper;
@@ -86,7 +90,14 @@ public class CarteiraService {
                 .orElseThrow(() -> new RuntimeException(
                         "Ação não encontrada — cadastre a ação antes de comprar"));
 
-        BigDecimal valorTotal = request.getPrecoUnitario()
+        AcaoResponseDTO cotacao = acaoService.atualizarCotacao(acao.getId());
+        BigDecimal precoUnitario = cotacao.getCotacaoAtual();
+        if (precoUnitario == null) {
+            throw new RuntimeException("Cotação não disponível para " + acao.getTicker());
+        }
+        precoUnitario = precoUnitario.setScale(2, RoundingMode.HALF_UP);
+
+        BigDecimal valorTotal = precoUnitario
                 .multiply(new BigDecimal(request.getQuantidade()))
                 .setScale(2, RoundingMode.HALF_UP);
 
@@ -95,17 +106,18 @@ public class CarteiraService {
                 .orElse(null);
 
         if (carteiraAcao == null) {
-
             carteiraAcao = new CarteiraAcao();
             carteiraAcao.setCarteira(carteira);
             carteiraAcao.setAcao(acao);
             carteiraAcao.setQuantidadeAtual(request.getQuantidade());
             carteiraAcao.setValorTotalInvestido(valorTotal);
-            carteiraAcao.setPrecoMedioCompra(
-                    request.getPrecoUnitario().setScale(2, RoundingMode.HALF_UP)
-            );
+            carteiraAcao.setPrecoMedioCompra(precoUnitario);
+        } else if (carteiraAcao.getQuantidadeAtual() == 0) {
+            // posição zerada por vendas anteriores — reutiliza o registro preservando histórico
+            carteiraAcao.setQuantidadeAtual(request.getQuantidade());
+            carteiraAcao.setValorTotalInvestido(valorTotal);
+            carteiraAcao.setPrecoMedioCompra(precoUnitario);
         } else {
-
             BigDecimal novoTotalInvestido = carteiraAcao.getValorTotalInvestido().add(valorTotal);
             Integer novaQuantidade = carteiraAcao.getQuantidadeAtual() + request.getQuantidade();
 
@@ -123,7 +135,7 @@ public class CarteiraService {
         operacao.setCarteiraAcao(carteiraAcao);
         operacao.setTipo(TipoOperacao.COMPRA);
         operacao.setQuantidade(request.getQuantidade());
-        operacao.setPrecoUnitario(request.getPrecoUnitario().setScale(2, RoundingMode.HALF_UP));
+        operacao.setPrecoUnitario(precoUnitario);
         operacao.setValorTotal(valorTotal);
 
         return operacaoMapper.toResponseDTO(operacaoRepository.save(operacao));
@@ -149,30 +161,76 @@ public class CarteiraService {
             );
         }
 
-        BigDecimal valorTotal = request.getPrecoUnitario()
+        AcaoResponseDTO cotacao = acaoService.atualizarCotacao(acao.getId());
+        BigDecimal precoVenda = cotacao.getCotacaoAtual();
+        if (precoVenda == null) {
+            throw new RuntimeException("Cotação não disponível para " + acao.getTicker());
+        }
+        precoVenda = precoVenda.setScale(2, RoundingMode.HALF_UP);
+
+        BigDecimal valorTotal = precoVenda
                 .multiply(new BigDecimal(request.getQuantidade()))
                 .setScale(2, RoundingMode.HALF_UP);
+
+        // lucro realizado desta venda: (precoVenda - precoMedioCompra) × quantidade
+        BigDecimal lucroDaVenda = precoVenda
+                .subtract(carteiraAcao.getPrecoMedioCompra())
+                .multiply(new BigDecimal(request.getQuantidade()))
+                .setScale(2, RoundingMode.HALF_UP);
+        BigDecimal lucroRealizadoAtual = carteiraAcao.getLucroRealizado() != null
+                ? carteiraAcao.getLucroRealizado() : BigDecimal.ZERO;
+        carteiraAcao.setLucroRealizado(lucroRealizadoAtual.add(lucroDaVenda));
 
         Integer novaQuantidade = carteiraAcao.getQuantidadeAtual() - request.getQuantidade();
         carteiraAcao.setQuantidadeAtual(novaQuantidade);
 
-        BigDecimal novoTotalInvestido = carteiraAcao.getPrecoMedioCompra()
-                .multiply(new BigDecimal(novaQuantidade))
-                .setScale(2, RoundingMode.HALF_UP);
+        BigDecimal novoTotalInvestido = novaQuantidade == 0
+                ? BigDecimal.ZERO
+                : carteiraAcao.getPrecoMedioCompra()
+                        .multiply(new BigDecimal(novaQuantidade))
+                        .setScale(2, RoundingMode.HALF_UP);
         carteiraAcao.setValorTotalInvestido(novoTotalInvestido);
 
-        // preço médio não muda na venda
+        int qtdVendidaAnterior = carteiraAcao.getQuantidadeVendida() != null
+                ? carteiraAcao.getQuantidadeVendida() : 0;
+        BigDecimal precoMedioVendaAnterior = carteiraAcao.getPrecoMedioVenda() != null
+                ? carteiraAcao.getPrecoMedioVenda() : BigDecimal.ZERO;
+        int novaQtdVendida = qtdVendidaAnterior + request.getQuantidade();
+        BigDecimal totalVendas = precoMedioVendaAnterior
+                .multiply(new BigDecimal(qtdVendidaAnterior))
+                .add(precoVenda.multiply(new BigDecimal(request.getQuantidade())));
+        BigDecimal novoPrecoMedioVenda = totalVendas
+                .divide(new BigDecimal(novaQtdVendida), 2, RoundingMode.HALF_UP);
+
+        carteiraAcao.setPrecoMedioVenda(novoPrecoMedioVenda);
+        carteiraAcao.setQuantidadeVendida(novaQtdVendida);
+
         carteiraAcaoRepository.save(carteiraAcao);
 
-        // registra a operação de venda
         Operacao operacao = new Operacao();
         operacao.setCarteiraAcao(carteiraAcao);
         operacao.setTipo(TipoOperacao.VENDA);
         operacao.setQuantidade(request.getQuantidade());
-        operacao.setPrecoUnitario(request.getPrecoUnitario().setScale(2, RoundingMode.HALF_UP));
+        operacao.setPrecoUnitario(precoVenda);
         operacao.setValorTotal(valorTotal);
 
         return operacaoMapper.toResponseDTO(operacaoRepository.save(operacao));
+    }
+
+    @Transactional
+    public void excluir(Long id) {
+        Carteira carteira = carteiraRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Carteira não encontrada"));
+
+        boolean temPosicoesAtivas = carteira.getPosicoes() != null && carteira.getPosicoes().stream()
+                .anyMatch(p -> p.getQuantidadeAtual() != null && p.getQuantidadeAtual() > 0);
+
+        if (temPosicoesAtivas) {
+            throw new RuntimeException(
+                    "Não é possível excluir uma carteira com posições ativas. Venda todas as ações antes de excluir.");
+        }
+
+        carteiraRepository.delete(carteira);
     }
 
     public List<OperacaoResponseDTO> listarOperacoes(Long carteiraId) {

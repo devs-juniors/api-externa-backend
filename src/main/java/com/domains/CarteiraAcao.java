@@ -41,7 +41,16 @@ public class CarteiraAcao {
     @Column(name = "valor_total_investido", nullable = false, precision = 19, scale = 2)
     private BigDecimal valorTotalInvestido;
 
-    @OneToMany(mappedBy = "carteiraAcao", cascade = CascadeType.ALL)
+    @Column(name = "preco_medio_venda", precision = 19, scale = 2)
+    private BigDecimal precoMedioVenda;
+
+    @Column(name = "quantidade_vendida", nullable = false)
+    private Integer quantidadeVendida = 0;
+
+    @Column(name = "lucro_realizado", nullable = false, precision = 19, scale = 2)
+    private BigDecimal lucroRealizado = BigDecimal.ZERO;
+
+    @OneToMany(mappedBy = "carteiraAcao", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Operacao> operacoes;
 
 }

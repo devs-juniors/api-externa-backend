@@ -1,4 +1,4 @@
-# API Externa Backend — Gestão de Ações
+# FEF Invest
 
 Sistema de gestão de corretoras, ações financeiras e carteiras de investimento desenvolvido em Java com Spring Boot, com integração a APIs públicas externas para validação e enriquecimento de dados.
 
@@ -146,6 +146,7 @@ O projeto sobe em `http://localhost:8080`
 | GET | `/corretoras/{id}` | Busca corretora por ID |
 | GET | `/corretoras/cnpj/{cnpj}` | Busca corretora por CNPJ |
 | GET | `/corretoras/cep/{cep}` | Consulta endereço pelo CEP |
+| DELETE | `/corretoras/{id}` | Exclui corretora |
 
 ### Ações
 
@@ -156,6 +157,7 @@ O projeto sobe em `http://localhost:8080`
 | GET | `/acoes/{id}` | Busca ação por ID |
 | GET | `/acoes/ticker/{ticker}` | Busca ação por ticker |
 | PUT | `/acoes/{id}/atualizar-cotacao` | Atualiza cotação da ação |
+| DELETE | `/acoes/{id}` | Exclui ação |
 
 ### Carteiras
 
@@ -167,6 +169,7 @@ O projeto sobe em `http://localhost:8080`
 | POST | `/carteiras/{id}/comprar` | Registra compra de ação |
 | POST | `/carteiras/{id}/vender` | Registra venda de ação |
 | GET | `/carteiras/{id}/operacoes` | Lista histórico completo da carteira |
+| DELETE | `/carteiras/{id}` | Exclui carteira |
 
 ### Operações
 
@@ -175,6 +178,14 @@ O projeto sobe em `http://localhost:8080`
 | GET | `/operacoes/carteira-acao/{id}` | Histórico de uma posição específica |
 | GET | `/operacoes/carteira-acao/{id}/compras` | Filtra só as compras |
 | GET | `/operacoes/carteira-acao/{id}/vendas` | Filtra só as vendas |
+
+### Exclusão de recursos
+
+| Método | Endpoint | Descrição | Validação |
+|---|---|---|---|
+| DELETE | `/corretoras/{id}` | Exclui corretora | Não pode ter carteiras vinculadas |
+| DELETE | `/carteiras/{id}` | Exclui carteira | Não pode ter posições ativas |
+| DELETE | `/acoes/{id}` | Exclui ação | Não pode estar em nenhuma carteira |
 
 ---
 
@@ -353,7 +364,9 @@ Operacao
 
 ---
 
-## 💰 Cálculo de Preço Médio
+## 💰 Cálculo de Lucro/Prejuízo
+
+### Preço Médio de Compra
 
 O sistema calcula automaticamente o preço médio de compra a cada nova compra:
 
@@ -367,7 +380,28 @@ Exemplo:
   Preço médio: 750,80 ÷ 15 = R$ 50,05
 ```
 
-Na venda o preço médio **não se altera** — apenas a quantidade e o valor total investido são recalculados.
+### Lucro Realizado vs. Não-Realizado
+
+O campo `lucroOuPrejuizo` retornado pela API combina dois componentes:
+
+```
+lucroOuPrejuizo = lucroRealizado + lucroNaoRealizado
+
+lucroRealizado    = Σ (precoVenda - precoMedioCompra) × qtdVendida  (acumulado a cada venda)
+lucroNaoRealizado = (cotacaoAtual - precoMedioCompra) × quantidadeAtual
+```
+
+**Exemplo:**
+```
+Compra 10 ações a R$ 20 → total investido: R$ 200
+Vende  10 ações a R$ 30 → lucroRealizado = (30-20) × 10 = R$ 100
+Compra  5 ações a R$ 25 → novo preço médio = R$ 25
+Cotação atual = R$ 30   → lucroNaoRealizado = (30-25) × 5 = R$ 25
+
+lucroOuPrejuizo = 100 + 25 = R$ 125
+```
+
+Ao zerar uma posição (`quantidadeAtual = 0`), o `lucroRealizado` é preservado no registro. Uma nova compra reutiliza o registro existente, resetando apenas os dados de compra (preço médio, valor investido) sem apagar o histórico de vendas.
 
 ---
 

@@ -31,7 +31,7 @@ public class Carteira {
     @JoinColumn(name = "corretora_id", nullable = false)
     private Corretora corretora;
 
-    @OneToMany(mappedBy = "carteira", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "carteira", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CarteiraAcao> posicoes;
 
     @Column(name = "data_criacao", nullable = false, updatable = false)
